@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRISM | Separate Signal from Noise</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed": "#7ffc97",
+                        "on-background": "#dae3f6",
+                        "tertiary-fixed-dim": "#62df7d",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#dae3f6",
+                        "on-secondary": "#123252",
+                        "on-secondary-fixed-variant": "#2b4869",
+                        "primary-container": "#4d8eff",
+                        "on-secondary-container": "#9bb7de",
+                        "tertiary": "#62df7d",
+                        "secondary-container": "#2b4869",
+                        "surface-variant": "#2d3544",
+                        "on-surface": "#dae3f6",
+                        "on-primary": "#002e6a",
+                        "on-tertiary-container": "#003111",
+                        "on-tertiary": "#003914",
+                        "on-error": "#690005",
+                        "outline-variant": "#424754",
+                        "on-tertiary-fixed": "#002109",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-tint": "#adc6ff",
+                        "primary": "#adc6ff",
+                        "background": "#0b1421",
+                        "on-surface-variant": "#c2c6d6",
+                        "outline": "#8c909f",
+                        "surface-dim": "#0b1421",
+                        "on-secondary-fixed": "#001c37",
+                        "inverse-primary": "#005ac2",
+                        "primary-fixed": "#d8e2ff",
+                        "surface": "#0b1421",
+                        "secondary": "#acc9f0",
+                        "inverse-on-surface": "#28313f",
+                        "secondary-fixed-dim": "#acc9f0",
+                        "surface-container": "#18202e",
+                        "secondary-fixed": "#d2e4ff",
+                        "surface-bright": "#313948",
+                        "on-primary-fixed": "#001a42",
+                        "on-tertiary-fixed-variant": "#005320",
+                        "surface-container-highest": "#2d3544",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface-container-low": "#131c29",
+                        "on-primary-container": "#00285d",
+                        "surface-container-lowest": "#060e1b",
+                        "surface-container-high": "#222a38",
+                        "tertiary-container": "#1ca64d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(45, 53, 68, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #adc6ff 0%, #4d8eff 100%);
+        }
+        .particle-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(173, 198, 255, 0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30">
+<!-- Shared TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-6 bg-[#0b1421]/80 backdrop-blur-xl h-[56px] border-b border-outline-variant/15">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-[0.2em] text-[#adc6ff] font-mono">PRISM</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="text-[#adc6ff] border-b-2 border-[#adc6ff] h-[56px] flex items-center px-2 transition-all duration-200 hover:bg-white/5" href="#">Intelligence</a>
+<a class="text-slate-400 h-[56px] flex items-center px-2 transition-all duration-200 hover:bg-white/5" href="#">Markets</a>
+<a class="text-slate-400 h-[56px] flex items-center px-2 transition-all duration-200 hover:bg-white/5" href="#">Science</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#adc6ff] cursor-pointer hover:bg-white/5 p-2 rounded-full transition-all">sensors</span>
+<button class="kinetic-gradient text-on-primary px-4 py-1.5 rounded-lg text-sm font-bold tracking-tight active:scale-[0.98] transition-all">TERMINAL ACCESS</button>
+</div>
+</header>
+<main class="pt-[56px]">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex flex-col items-center justify-center overflow-hidden py-24">
+<div class="absolute inset-0 particle-bg -z-10"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background -z-10"></div>
+<div class="container mx-auto px-6 text-center max-w-4xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container border border-outline-variant/20 mb-8">
+<span class="flex h-2 w-2 rounded-full bg-tertiary"></span>
+<span class="font-mono text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">Network Active: Real-time Signal Processing</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-bold tracking-tighter text-on-surface mb-8 leading-[0.9]">
+                    Separate <span class="text-primary italic">Signal</span> from Noise.
+                </h1>
+<p class="text-xl text-on-surface-variant max-w-2xl mx-auto mb-16 leading-relaxed">
+                    Prism quantifies whether a prediction market price move is informed trading, speculation, or noise — in real time.
+                </p>
+<!-- Hero Widget: Mini Signal Cards -->
+<div class="flex flex-wrap justify-center gap-4">
+<!-- Card 1 -->
+<div class="w-72 bg-surface-container p-4 rounded-lg border border-outline-variant/10 text-left hover:bg-surface-container-high transition-colors group">
+<div class="flex justify-between items-start mb-3">
+<span class="font-mono text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Osun Election</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-mono text-[10px] font-bold">INFORMED</span>
+</div>
+<div class="flex items-end justify-between">
+<div>
+<div class="text-2xl font-mono font-bold text-on-surface tracking-tighter">$0.64</div>
+<div class="text-[10px] font-mono text-tertiary">+4.2% Signal Strength</div>
+</div>
+<div class="w-16 h-8 bg-tertiary/10 rounded overflow-hidden flex items-end gap-1 px-1">
+<div class="w-1.5 bg-tertiary/40 h-[40%]"></div>
+<div class="w-1.5 bg-tertiary/40 h-[60%]"></div>
+<div class="w-1.5 bg-tertiary/40 h-[80%]"></div>
+<div class="w-1.5 bg-tertiary h-[100%]"></div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="w-72 bg-surface-container p-4 rounded-lg border border-outline-variant/10 text-left hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-3">
+<span class="font-mono text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">AFCON Winner</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-mono text-[10px] font-bold">SPECULATIVE</span>
+</div>
+<div class="flex items-end justify-between">
+<div>
+<div class="text-2xl font-mono font-bold text-on-surface tracking-tighter">$0.18</div>
+<div class="text-[10px] font-mono text-secondary">Wash Trading Detected</div>
+</div>
+<div class="w-16 h-8 bg-secondary/10 rounded overflow-hidden flex items-end gap-1 px-1">
+<div class="w-1.5 bg-secondary/40 h-[30%]"></div>
+<div class="w-1.5 bg-secondary/40 h-[70%]"></div>
+<div class="w-1.5 bg-secondary/40 h-[20%]"></div>
+<div class="w-1.5 bg-secondary h-[50%]"></div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="w-72 bg-surface-container p-4 rounded-lg border border-outline-variant/10 text-left hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-3">
+<span class="font-mono text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Fed Rate Pivot</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container/20 text-error font-mono text-[10px] font-bold">NOISE</span>
+</div>
+<div class="flex items-end justify-between">
+<div>
+<div class="text-2xl font-mono font-bold text-on-surface tracking-tighter">$0.42</div>
+<div class="text-[10px] font-mono text-error">Zero Information Delta</div>
+</div>
+<div class="w-16 h-8 bg-error/10 rounded overflow-hidden flex items-end gap-1 px-1">
+<div class="w-1.5 bg-error h-[100%]"></div>
+<div class="w-1.5 bg-error/30 h-[100%]"></div>
+<div class="w-1.5 bg-error h-[100%]"></div>
+<div class="w-1.5 bg-error/30 h-[100%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Problem Section: Two-Column Comparison -->
+<section class="py-24 bg-surface-container-low border-y border-outline-variant/10">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+<!-- Manipulation Trap -->
+<div class="p-8 bg-surface-container rounded-xl border-l-4 border-error/50">
+<h3 class="font-mono text-xs font-bold text-error uppercase tracking-widest mb-4">Phase Alpha: The Trap</h3>
+<h2 class="text-3xl font-bold text-on-surface mb-6 tracking-tight">Manipulation Trap</h2>
+<div class="aspect-video bg-surface-container-lowest rounded-lg mb-8 relative overflow-hidden flex items-center justify-center">
+<img class="absolute inset-0 opacity-20 object-cover" data-alt="Dark abstract visualization of volatile stock market lines crashing and colliding in deep red and charcoal tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArkXuk3kQHKW7vhnKl0F4G1QvajTao31Wfk0rgQv7QQocN_6pUD5yCzRFLyxo2lJwHRIeKbEed4HH3c_G09MeNMGKzFNZSP9GHSXNuTb8gYpKW_vB-ci94czg5JIHWFUDX15d6JxFCouKNnyUItaGep2HcET0xMV4UaOQEWi3D-dAdUBEpvXCMf5AuHXM_8k6tckLs8Cax-7opN4Uf71KzTO0xSiJNK6Hr1-WU4wznEq00EdE5tAEQ6J5lEC66s1m58EBIUWqGCA"/>
+<div class="relative text-center">
+<span class="material-symbols-outlined text-error text-5xl mb-4">error</span>
+<p class="font-mono text-xs text-on-surface-variant">VOLATILITY: CRITICAL</p>
+</div>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+                            Price spikes often mask strategic wash trading or emotional liquidity exits. Without Prism, these events appear as significant market movements, trapping speculators in low-conviction entries.
+                        </p>
+</div>
+<!-- Informed Move -->
+<div class="p-8 bg-surface-container rounded-xl border-l-4 border-tertiary/50">
+<h3 class="font-mono text-xs font-bold text-tertiary uppercase tracking-widest mb-4">Phase Omega: The Signal</h3>
+<h2 class="text-3xl font-bold text-on-surface mb-6 tracking-tight">Informed Move</h2>
+<div class="aspect-video bg-surface-container-lowest rounded-lg mb-8 relative overflow-hidden flex items-center justify-center">
+<img class="absolute inset-0 opacity-20 object-cover" data-alt="Clean minimal data visualization with smooth ascending green lines and organized hexagonal nodes on a deep navy background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBybM1xg1KhKtb3kLXc4af2TYgyfwwiKIHbUPn_KI_xlnfYbKHZ9SflpnmWgnr2O9BDYR1XXLAaUNrP-OrBgCq4UFpRnGoxPtz-TyDxo1cMN1QrBQh_g9gVTe4OweggXQvWlgxlL9lZqI1IfYGaR4wed6Z35ADxdIL0yoM1tQPfl0YQ5mraJstKu06DJ2Vsq-RsjCjypXeISY8TPsTuZykizWzNxqIqRHbPVFepeeC1ADldVsX3dHkfSe18IZRwgZpoXb_PB5xp7A"/>
+<div class="relative text-center">
+<span class="material-symbols-outlined text-tertiary text-5xl mb-4">verified</span>
+<p class="font-mono text-xs text-on-surface-variant">CONVICTION: HIGH</p>
+</div>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+                            True informed trading leaves a structural footprint. Prism identifies high-adverse-selection events where volume correlates with structural information flow, not just order flow.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- How it Works: D3-style Flow Diagram -->
+<section class="py-24 relative overflow-hidden">
+<div class="container mx-auto px-6 text-center mb-16">
+<span class="font-mono text-[11px] font-bold text-primary tracking-widest uppercase mb-4 block">The Kinetic Engine</span>
+<h2 class="text-4xl md:text-5xl font-bold text-on-surface tracking-tight">Information Flow Geometry</h2>
+</div>
+<div class="container mx-auto px-6 max-w-5xl">
+<div class="relative h-[400px] bg-surface-container-lowest rounded-2xl border border-outline-variant/10 flex items-center justify-center">
+<!-- Flow Visualization Logic (Simplified with CSS shapes) -->
+<div class="absolute inset-0 opacity-20">
+<div class="absolute top-1/2 left-0 w-full h-[1px] bg-primary-container/30"></div>
+<div class="absolute top-1/4 left-0 w-full h-[1px] bg-primary-container/10"></div>
+<div class="absolute top-3/4 left-0 w-full h-[1px] bg-primary-container/10"></div>
+</div>
+<div class="flex items-center justify-between w-full px-12 z-10">
+<!-- Node 1 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-16 h-16 rounded-full glass-panel border border-primary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">database</span>
+</div>
+<span class="font-mono text-[10px] text-on-surface-variant">RAW ORDER FLOW</span>
+</div>
+<div class="flex-grow h-px bg-gradient-to-r from-primary to-tertiary mx-4 relative">
+<div class="absolute -top-1 left-1/2 w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+</div>
+<!-- Node 2 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-20 h-20 rounded-lg kinetic-gradient flex items-center justify-center shadow-2xl shadow-primary/20">
+<span class="material-symbols-outlined text-on-primary text-3xl">insights</span>
+</div>
+<span class="font-mono text-[10px] text-primary font-bold">ORACLE KERNEL</span>
+</div>
+<div class="flex-grow h-px bg-gradient-to-r from-tertiary to-transparent mx-4 relative"></div>
+<!-- Node 3 (Output) -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-16 h-16 rounded-full bg-surface-container-high border border-tertiary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+</div>
+<span class="font-mono text-[10px] text-on-surface-variant">SIGNAL CONVICTION</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Science Section: Three Columns -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Kyle's Lambda -->
+<div class="p-8 group">
+<span class="font-mono text-[10px] font-bold text-primary-container tracking-tighter mb-4 block">0x01 // METRIC</span>
+<h3 class="text-xl font-bold text-on-surface mb-4">Kyle's Lambda</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            Measures price impact of order flow. PRISM monitors λ spikes to differentiate between large dumb-money orders and strategic informed accumulation.
+                        </p>
+<div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Amihud Illiquidity -->
+<div class="p-8 group">
+<span class="font-mono text-[10px] font-bold text-primary-container tracking-tighter mb-4 block">0x02 // LIQUIDITY</span>
+<h3 class="text-xl font-bold text-on-surface mb-4">Amihud Illiquidity</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            Captures the absolute price return per dollar of trading volume. This provides a clear window into how brittle the current market pricing actually is.
+                        </p>
+<div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Adverse Selection -->
+<div class="p-8 group">
+<span class="font-mono text-[10px] font-bold text-primary-container tracking-tighter mb-4 block">0x03 // PROBABILITY</span>
+<h3 class="text-xl font-bold text-on-surface mb-4">Adverse Selection</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            We calculate the probability that a market maker is trading against someone with superior private information (PIN Model), providing the ultimate "Signal" score.
+                        </p>
+<div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-dim pt-24 pb-12 border-t border-outline-variant/10">
+<div class="container mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-24">
+<div class="max-w-xs">
+<span class="text-2xl font-bold tracking-[0.3em] text-[#adc6ff] font-mono mb-6 block">PRISM</span>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                        The leading institutional infrastructure for prediction market intelligence and information flow analysis.
+                    </p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-16">
+<div>
+<h4 class="font-mono text-[11px] font-bold text-on-surface uppercase tracking-widest mb-6">Intelligence</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant font-mono">
+<li><a class="hover:text-primary transition-colors" href="#">Markets API</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Signal Hub</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Risk Index</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-mono text-[11px] font-bold text-on-surface uppercase tracking-widest mb-6">System</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant font-mono">
+<li><a class="hover:text-primary transition-colors" href="#">Research</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terminal</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Status</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-mono text-[11px] font-bold text-on-surface uppercase tracking-widest mb-6">Connect</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant font-mono">
+<li><a class="hover:text-primary transition-colors" href="#">Twitter/X</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Discord</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">GitHub</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-outline-variant/5">
+<span class="font-mono text-[10px] text-on-surface-variant/50 tracking-widest uppercase">© 2024 PRISM QUANTITATIVE. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-8 mt-4 md:mt-0 font-mono text-[10px] text-on-surface-variant/50 tracking-widest uppercase">
+<a class="hover:text-on-surface" href="#">Privacy</a>
+<a class="hover:text-on-surface" href="#">Legal</a>
+<a class="hover:text-on-surface" href="#">Compliance</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

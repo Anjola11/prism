@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+@theme {
+  /* Brand Primaries */
+  --color-prism-navy: #050D1A;
+  --color-prism-navy-2: #0D1B2E;
+  --color-prism-navy-3: #1A2D45;
+  --color-prism-navy-4: #243650;
+  --color-prism-steel: #2D4A6B;
+  --color-prism-blue: #1E3A5F;
+
+  /* Text */
+  --color-prism-text-1: #E2E8F0;
+  --color-prism-text-2: #94A3B8;
+  --color-prism-text-3: #64748B;
+  --color-prism-text-mono: #A8C5E8;
+
+  /* Signal Classification Colors */
+  --color-signal-green: #16A34A;
+  --color-signal-green-bg: #052E16;
+  --color-signal-green-muted: #14532D;
+  --color-signal-amber: #F59E0B;
+  --color-signal-amber-bg: #1C1407;
+  --color-signal-amber-muted: #78350F;
+  --color-signal-red: #DC2626;
+  --color-signal-red-bg: #1C0707;
+  --color-signal-red-muted: #7F1D1D;
+
+  /* UI Accents */
+  --color-prism-accent: #3B82F6;
+  --color-prism-accent-2: #1D4ED8;
+
+  /* Chart Colors */
+  --color-chart-1: #3B82F6;
+  --color-chart-2: #8B5CF6;
+  --color-chart-3: #06B6D4;
+  --color-chart-4: #F59E0B;
+
+  /* Typography */
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", "Fira Code", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-prism-navy text-prism-text-2 font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-prism-text-1;
+  }
+}
+
+@layer components {
+  .prism-card {
+    @apply border border-prism-steel bg-prism-navy-2 rounded-lg p-5;
+  }
+
+  .prism-card-elevated {
+    @apply border border-prism-navy-4 bg-prism-navy-3 rounded-lg p-5 shadow-[0_2px_16px_rgba(0,0,0,0.4)];
+  }
+
+  .prism-button-primary {
+    @apply bg-prism-accent hover:bg-prism-accent-2 text-white font-sans font-medium text-sm px-6 py-2.5 rounded-md transition-colors;
+  }
+
+  .prism-input {
+    @apply w-full bg-prism-navy-2 border border-prism-steel rounded-md px-3 py-2.5 font-mono text-sm text-prism-text-1 placeholder:text-prism-text-3 focus:outline-none focus:border-prism-accent transition-colors;
+  }
+}
